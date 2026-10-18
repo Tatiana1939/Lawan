@@ -1,0 +1,15 @@
+{
+  "name": "lawan",
+  "version": "1.0.0",
+  "description": "Lawan — CRM-система для адвокатских образований",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
