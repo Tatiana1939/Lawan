@@ -1,0 +1,687 @@
+/* ============================================ */
+/*            КАНБАН-ДОСКА ЗАДАЧ                */
+/* ============================================ */
+
+.tasks-page {
+    padding-top: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 60px;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box;
+    align-items: stretch;
+    text-align: left;
+}
+
+/* ============================================ */
+/*               ПАНЕЛЬ ДОСОК                  */
+/* ============================================ */
+.boards-panel {
+    display: flex;
+    align-items: center;
+    padding: 12px 40px;
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.boards-tabs {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    flex: 1;
+    align-items: center;
+    scrollbar-width: none;
+}
+.boards-tabs::-webkit-scrollbar { display: none; }
+
+.board-tab {
+    padding: 8px 16px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6b7280;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+.board-tab:hover { background: #f3f4f6; }
+.board-tab.active {
+    background: #eff6ff;
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.add-board-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: transparent;
+    border: 1px dashed #d1d5db;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.add-board-btn:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+    color: #374151;
+}
+
+/* ============================================ */
+/*                 ТУЛБАР                       */
+/* ============================================ */
+.tasks-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto 24px auto;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.toolbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.view-switcher-wrapper {
+    display: flex;
+    background: #eef0f3;
+    border-radius: 12px;
+    padding: 4px;
+    gap: 2px;
+}
+
+.toolbar-icon-btn {
+    background: transparent;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: #6b7280;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+.toolbar-icon-btn:hover { color: #111827; }
+.toolbar-icon-btn.active {
+    background: #ffffff;
+    color: #407bff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.toolbar-settings-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.toolbar-settings-btn:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+}
+
+/* ============================================ */
+/*          МАРКЕРЫ И ВЫПАДАЮЩИЕ МЕНЮ           */
+/* ============================================ */
+.markers-area {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.marker-dropdown {
+    position: relative;
+}
+
+.marker-trigger {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #4b5563;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+.marker-trigger:hover {
+    border-color: #407bff;
+    color: #407bff;
+}
+
+.marker-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 4px;
+    display: none;
+    flex-direction: column;
+    z-index: 100;
+    min-width: 160px;
+}
+.marker-dropdown.open .marker-dropdown-menu {
+    display: flex;
+}
+
+.marker-drag-item {
+    padding: 8px 12px;
+    font-size: 13px;
+    color: #374151;
+    cursor: grab;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+}
+.marker-drag-item:hover { background: #f3f4f6; }
+.marker-drag-item:active { cursor: grabbing; }
+
+/* ============================================ */
+/*               СЕТКА КАНБАНА                  */
+/* ============================================ */
+.kanban-board {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    align-items: start;
+}
+
+.kanban-column {
+    background: #f3f4f6;
+    border-radius: 16px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 400px;
+    transition: background 0.2s;
+}
+.kanban-column[data-status="todo"]  { background: #fef9ec; }
+.kanban-column[data-status="doing"] { background: #f5f0ff; }
+.kanban-column[data-status="done"]  { background: #ecfdf5; }
+
+.kanban-column.drag-over { outline: 2px dashed #407bff; outline-offset: -4px; }
+
+.kanban-column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4px;
+}
+
+.kanban-col-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.kanban-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.kanban-add-btn {
+    background: transparent;
+    border: none;
+    color: #407bff;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 8px;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.kanban-add-btn:hover { background: rgba(64,123,255,0.08); }
+
+.kanban-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 60px;
+}
+
+/* ============================================ */
+/*                КАРТОЧКА                      */
+/* ============================================ */
+.kanban-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 12px 30px 12px 12px; /* Справа больше отступа для корзины */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    cursor: grab;
+    transition: box-shadow 0.2s, transform 0.15s;
+    word-break: break-word;
+    position: relative;
+}
+.kanban-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.kanban-card.dragging { opacity: 0.5; cursor: grabbing; transform: rotate(1deg); }
+
+.kanban-card.completed .kanban-card-title {
+    text-decoration: line-through;
+    color: #9ca3af;
+}
+
+.kanban-card-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.kanban-checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #d1d5db;
+    border-radius: 50%;
+    background: #fff;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin-top: 2px;
+    transition: all 0.2s;
+}
+.kanban-checkbox:hover { border-color: #407bff; }
+.kanban-card.completed .kanban-checkbox {
+    background: #10b981;
+    border-color: #10b981;
+    color: #fff;
+}
+
+.kanban-card-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+    line-height: 1.35;
+    flex: 1;
+}
+
+/* Кнопка удаления карточки (справа) */
+.card-delete-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    color: #d1d5db;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    opacity: 0;
+}
+.kanban-card:hover .card-delete-btn { opacity: 1; }
+.card-delete-btn:hover { color: #ef4444; background: #fef2f2; }
+
+/* Кнопка "+" для маркеров в карточке */
+.kanban-add-marker-btn {
+    position: absolute;
+    top: 8px;
+    right: 32px;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: #f3f4f6;
+    border: none;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.2s;
+    font-size: 18px;
+    line-height: 1;
+}
+.kanban-card:hover .kanban-add-marker-btn { opacity: 1; }
+.kanban-add-marker-btn:hover { background: #e5e7eb; color: #111827; }
+
+/* ============================================ */
+/*            БЕЙДЖИ И МАРКЕРЫ                  */
+/* ============================================ */
+.kanban-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.kanban-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: #f3f4f6;
+    color: #4b5563;
+    border: 1px solid #e5e7eb;
+    position: relative;
+    cursor: grab;
+    transition: all 0.2s;
+}
+.kanban-badge:hover {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+}
+.kanban-badge:active { cursor: grabbing; }
+
+.kanban-badge.assignee { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+.kanban-badge.deadline { background: #fff7ed; color: #c2410c; border-color: #fed7aa; }
+.kanban-badge.priority.high { background: #fef2f2; color: #b91c1c; border-color: #fecaca; }
+.kanban-badge.priority.medium { background: #fefce8; color: #a16207; border-color: #fef08a; }
+.kanban-badge.priority.low { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+
+.badge-delete {
+    background: none;
+    border: none;
+    color: inherit;
+    opacity: 0.5;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 2px;
+    font-size: 14px;
+    line-height: 1;
+}
+.badge-delete:hover { opacity: 1; }
+
+/* Меню внутри карточки (по клику на +) */
+.marker-menu {
+    position: absolute;
+    top: 36px;
+    right: 8px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 4px;
+    display: none;
+    flex-direction: column;
+    z-index: 10;
+    min-width: 160px;
+}
+.marker-menu.open { display: flex; }
+
+.marker-menu-item {
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: #374151;
+    cursor: pointer;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.marker-menu-item:hover { background: #f3f4f6; }
+
+/* Подсветка карточки при перетаскивании на неё маркера */
+.kanban-card.drag-over-marker {
+    outline: 2px dashed #407bff;
+    outline-offset: -2px;
+    background-color: #eff6ff;
+    transition: all 0.2s;
+}
+
+/* ============================================ */
+/*           ИДЕАЛЬНОЕ ДЕРЕВО ЗАДАЧ             */
+/* ============================================ */
+.subtasks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+    padding-left: 0;
+}
+
+.subtask-children {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-left: 15px; /* Жесткий отступ вправо для каждого уровня */
+    padding-left: 10px;
+    border-left: 1px solid #e5e7eb; /* Вертикальная линия */
+    margin-top: 6px;
+}
+
+.subtask-item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.subtask-row {
+    display: flex;
+    align-items: flex-start; /* Выравниваем по верху, если текст в 2 строки */
+    gap: 8px;
+    font-size: 12px;
+    color: #4b5563;
+    padding: 4px 0;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Горизонтальная веточка (уголок) */
+.subtask-children > .subtask-item > .subtask-row::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 11px; /* Выравниваем по центру чекбокса */
+    width: 10px;
+    height: 1px;
+    background: #e5e7eb;
+}
+
+.subtask-checkbox {
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+.subtask-checkbox.checked {
+    background: #10b981;
+    border-color: #10b981;
+    color: #fff;
+}
+
+.subtask-text {
+    flex: 1;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.4;
+}
+.subtask-item.completed > .subtask-row .subtask-text {
+    text-decoration: line-through;
+    color: #9ca3af;
+}
+
+.subtask-delete {
+    background: none;
+    border: none;
+    color: #d1d5db;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    padding: 0 4px;
+    display: none;
+    margin-top: 2px;
+}
+.subtask-row:hover .subtask-delete { display: block; }
+.subtask-delete:hover { color: #ef4444; }
+
+.add-subtask-btn {
+    font-size: 11px;
+    color: #407bff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 6px 0 2px 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
+}
+.add-subtask-btn:hover { text-decoration: underline; }
+
+.add-nested-btn {
+    background: #f3f4f6;
+    border: none;
+    border-radius: 4px;
+    color: #9ca3af;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+    margin-left: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+.add-nested-btn:hover { background: #e5e7eb; color: #407bff; }
+
+/* ============================================ */
+/*            ЗАГЛУШКИ И ПУСТОТЫ                */
+/* ============================================ */
+.view-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    background: #f9fafb;
+    border: 2px dashed #e5e7eb;
+    border-radius: 16px;
+    color: #9ca3af;
+    font-size: 18px;
+    font-weight: 500;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.kanban-empty {
+    font-size: 12px;
+    color: #9ca3af;
+    font-style: italic;
+    text-align: center;
+    padding: 16px 8px;
+    border: 1px dashed #d1d5db;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.5);
+}
+
+/* ============================================ */
+/*            АДАПТИВ                           */
+/* ============================================ */
+@media (max-width: 1024px) {
+    .kanban-board { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+    .tasks-page { padding: 20px 12px 40px 12px; }
+    .tasks-toolbar { flex-direction: column; align-items: stretch; gap: 12px; }
+    .kanban-column { min-height: auto; }
+}
+
+/* ============================================ */
+/*          ПЕРЕКЛЮЧЕНИЕ ВИДОВ (ЗАДАЧИ)         */
+/* ============================================ */
+.board-view-container {
+    display: none;
+    width: 100%;
+}
+.board-view-container.active {
+    display: block;
+}
+
+/* Линия и веточка для самых первых подзадач */
+.subtasks-list > .subtask-item > .subtask-row {
+    padding-left: 14px;
+}
+.subtasks-list > .subtask-item > .subtask-row::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 8px;
+    height: 1px;
+    background: #e5e7eb;
+}

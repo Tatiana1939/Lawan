@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <!-- 'это то как может выглядеть ссылка когда ее отправляешь те с названием и картинкой'
+    <meta property="og:title" content="Можно мягче">
+    <meta property="og:url" content="https://maybesofter.com/"> ссылкак на сам сайт
+    <meta property="og:image" content="/images/og.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lawan - система для адвокатов</title> 
+    <!-- Подключаем шрифт Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="tasks.css">
+    <link rel="stylesheet" href="main-window.css">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
+</head>
+<body>
+    <div class="header-wrapper">
+        <!-- Шапка -->
+        <header>
+            <div class="logo" id="nav-home">
+                <span class="logo-icon">💼</span>
+                <span class="logo-text">Lawan</span>
+            </div>
+
+            <!-- Кнопка-бургер (видна только на мобильных) -->
+            <button class="burger-btn" id="burgerBtn" aria-label="Меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Обертка для меню и кнопок (скрыта на мобильных, пока не нажмут бургер) -->
+            <div class="nav-wrapper" id="navWrapper">
+                <nav>
+                    <ul>
+                        <li><a href="#">Продукты <svg class="arrow-down" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a></li>
+                        <li><a href="#">Реестр клиентов</a></li>
+                        <li><a href="#">Файлы с делами</a></li>
+                        <li><a href="#" id="nav-tasks">Задачи</a></li>
+                        <li><a href="#" id="nav-calendar">Календарь</a></li>
+                        <li><a href="#">Уведомления</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <button class="icon-btn" title="Связаться">
+                        <svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 0 0-1.02.24l-2.2 2.2a15.045 15.045 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1A11.36 11.36 0 0 1 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zM19 12h2a9 9 0 0 0-9-9v2c3.87 0 7 3.13 7 7zm-4 0h2c0-2.76-2.24-5-5-5v2c1.66 0 3 1.34 3 3z"/></svg>
+                    </button>
+                    <button class="icon-btn" title="Сменить язык">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56c1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>
+                    </button>
+                    
+                    <a href="#" class="btn-login">Войти</a>
+                    <a href="#" class="btn-register">Регистрация</a>
+                </div>
+            </div>
+        </header>
+    </div>
+
+
+    <div id="main-view">
+        <!-- Основной контент -->
+        <main class="hero">
+            <h1>Облачная CRM-система<br>для адвокатских образований</h1>
+            <p class="hero-subtitle">
+                Управляйте делами, клиентами и задачами в едином окне. 
+                Вся команда в курсе событий, а данные защищены и доступны 24/7.
+            </p>
+            <!-- ================= ЛИНИЯ  ================= -->
+            <div class="section-divider"></div>
+
+            <div class="feature-pill">
+                <!-- Элемент 1: ИИ-консультант (активен по умолчанию) -->
+                <button class="feature-item active" data-target="chat-ai">
+                    <div class="feature-icon-wrapper bg-blue">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+                    </div>
+                    Мессенджер с ии-консультантом
+                </button>
+            
+                <!-- Элемент 2: Мессенджер для работы -->
+                <button class="feature-item" data-target="chat-colleague">
+                    <div class="feature-icon-wrapper bg-purple">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                    </div>
+                    Мессенджер для работы
+                </button>
+            </div>
+
+            <!-- Общий контейнер для чатов -->
+            <div class="chats-wrapper">
+                
+                <!-- ================= ЧАТ 1: ИИ-Помощник ================= -->
+                <div id="chat-ai" class="chat-view active">
+                    <div class="messenger-mockup">
+                        <!-- Шапка чата -->
+                        <div class="messenger-header">
+                            <div class="user-info">
+                                <div class="avatar ai-avatar">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>
+                                </div>
+                                <div class="user-details">
+                                    <span class="user-name">ИИ-Помощник</span>
+                                    <span class="user-status">в сети</span>
+                                </div>
+                            </div>
+                            <div class="header-actions">
+                                <span class="icon-dots">•••</span>
+                            </div>
+                        </div>
+                    
+                        <!-- Тело чата -->
+                        <div class="messenger-body">
+                            <div class="chat-date">Сегодня</div>
+                    
+                            <div class="message-row outgoing">
+                                <div class="message-bubble">
+                                    <div class="message-text">Коллега, нужно быстро найти судебную практику по ст. 159 УК РФ за последний год. Желательно с комментариями ВС.</div>
+                                    <div class="message-meta">
+                                        <span class="message-time">10:42</span>
+                                        <span class="message-status">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline><polyline points="20 12 9 23 4 18" style="opacity: 0.5;"></polyline></svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="message-row incoming">
+                                <div class="message-bubble">
+                                    <div class="message-text">Анализирую базу... Нашел 14 релевантных решений. Подготовил краткую выжимку по ключевым позициям. Отправить в документ?</div>
+                                    <div class="message-meta">
+                                        <span class="message-time">10:42</span>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="message-row outgoing">
+                                <div class="message-bubble">
+                                    <div class="message-text">Да, спасибо. И добавь ссылки на источники.</div>
+                                    <div class="message-meta">
+                                        <span class="message-time">10:43</span>
+                                        <span class="message-status">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline><polyline points="20 12 9 23 4 18" style="opacity: 0.5;"></polyline></svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="message-row incoming">
+                                <div class="message-bubble typing-indicator">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Строка ввода -->
+                        <div class="messenger-input">
+                            <button class="attach-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                            </button>
+                            <input type="text" placeholder="Введите сообщение..." disabled>
+                            <button class="send-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- ================= КОНЕЦ ЧАТА 1 ================= -->
+
+
+                <!-- ================= ЧАТ 2: Смирнов А.В. ================= -->
+                <div id="chat-colleague" class="chat-view">
+                    <div class="messenger-mockup lawyer-chat">
+                        <!-- Шапка чата -->
+                        <div class="messenger-header">
+                            <div class="user-info">
+                                <div class="avatar lawyer-avatar">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                </div>
+                                <div class="user-details">
+                                    <span class="user-name">Смирнов А.В.</span>
+                                    <span class="user-status offline">был(а) 15 мин назад</span>
+                                </div>
+                            </div>
+                            <div class="header-actions">
+                                <span class="icon-dots">•••</span>
+                            </div>
+                        </div>
+                    
+                        <!-- Тело чата -->
+                        <div class="messenger-body">
+                            <div class="chat-date">Вчера</div>
+                    
+                            <div class="message-row incoming">
+                                <div class="message-bubble">
+                                    <div class="message-text">Андрей, добрый день! Посмотри, пожалуйста, проект искового по делу "Альфы". Кажется, мы упустили сроки по одному эпизоду.</div>
+                                    <div class="message-meta">
+                                        <span class="message-time">16:20</span>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="message-row outgoing">
+                                <div class="message-bubble">
+                                    <div class="message-text">Добрый! Сейчас гляну. Скинь файл в облако, я открою.</div>
+                                    <div class="message-meta">
+                                        <span class="message-time">16:22</span>
+                                        <span class="message-status">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline><polyline points="20 12 9 23 4 18" style="opacity: 0.5;"></polyline></svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="message-row incoming">
+                                <div class="message-bubble file-bubble">
+                                    <div class="file-info">
+                                        <div class="file-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                        </div>
+                                        <div class="file-details">
+                                            <span class="file-name">Isk_Alfa_final.docx</span>
+                                            <span class="file-size">2.4 МБ</span>
+                                        </div>
+                                    </div>
+                                    <div class="message-meta">
+                                        <span class="message-time">16:23</span>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="message-row outgoing">
+                                <div class="message-bubble">
+                                    <div class="message-text">Вижу. Да, по второму эпизоду срок исковой давности истекает 12 числа. Надо срочно подавать ходатайство о восстановлении.</div>
+                                    <div class="message-meta">
+                                        <span class="message-time">16:25</span>
+                                        <span class="message-status">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline><polyline points="20 12 9 23 4 18" style="opacity: 0.5;"></polyline></svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="message-row incoming">
+                                <div class="message-bubble">
+                                    <div class="message-text">Согласен. Я подготовлю ходатайство к завтрашнему утру. Спасибо!</div>
+                                    <div class="message-meta">
+                                        <span class="message-time">16:28</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Строка ввода -->
+                        <div class="messenger-input">
+                            <button class="attach-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                            </button>
+                            <input type="text" placeholder="Написать сообщение..." disabled>
+                            <button class="send-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- ================= КОНЕЦ ЧАТА 2 ================= -->
+
+            </div>
+            <!-- ================= ЛИНИЯ МЕЖДУ ЧАТОМ И КАЛЕНДАРЕМ ================= -->
+            <div class="section-divider"></div>
+            <!-- Блок с описанием фичи "Календарь" -->
+            <section class="feature-showcase">
+                <div class="feature-highlight-header">
+                    <span class="feature-label">Планирование</span>
+                    <h2>Рабочий календарь, который всегда под рукой</h2>
+                </div>
+                <div class="feature-showcase-container">
+                    
+                    <!-- Левая часть: Текст -->
+                    <div class="feature-text-content">
+                        <p class="feature-desc">
+                            Забудьте о стикерах и хаосе в делах. Наш встроенный планер помогает адвокатам и юристам четко распределять рабочее время. 
+                        </p>
+                        
+                        <ul class="feature-list">
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <div><strong>Два режима:</strong> Удобный обзор на неделю для детального планирования и вид на месяц для общей картины.</div>
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <div><strong>Отметки о выполнении:</strong> Зачеркивайте завершенные задачи в один клик.</div>
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <div><strong>Ничего не теряется:</strong> Все задачи надежно сохраняются и не исчезнут после перезагрузки страницы.</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Правая часть: ДВЕ картинки -->
+                    <div class="feature-image-content">
+                        <!-- Картинка 1 (Неделя) -->
+                        <div class="image-wrapper">
+                            <div class="image-placeholder">
+                                <!-- ВСТАВЬТЕ ПЕРВУЮ КАРТИНКУ СЮДА -->
+                                <img src="images/week-cal.png" alt="Календарь - Неделя">
+                            </div>
+                        </div>
+
+                        <!-- Картинка 2 (Месяц) -->
+                        <div class="image-wrapper">
+                            <div class="image-placeholder">
+                                <!-- ВСТАВЬТЕ ВТОРУЮ КАРТИНКУ СЮДА -->
+                                <img src="images/month-cal.png" alt="Календарь - Месяц">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+<!-- ================= ЛИНИЯ================= -->
+            <div class="section-divider"></div>
+
+            <!-- Блок с описанием фичи "Задачи" -->
+            <section class="feature-showcase feature-reverse">
+                
+                <!-- Заголовок по центру с фоном -->
+                <div class="feature-highlight-header">
+                    <span class="feature-label">Управление делами</span>
+                    <h2>Задачи, которые не дадут забыть о главном</h2>
+                </div>
+
+                <div class="feature-showcase-container">
+                    
+                    <!-- Левая часть: Видео -->
+                    <div class="feature-image-content video-content">
+                        <div class="video-wrapper">
+                            <!-- ВСТАВЬТЕ ВАШЕ ВИДЕО СЮДА -->
+                            <video src="video/tasks-video.mp4" autoplay loop muted playsinline></video> 
+                            
+                            <!-- Временная заглушка 
+                            <div class="video-placeholder">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                <span>Здесь будет видео с задачами</span>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <!-- Правая часть: Текст -->
+                    <div class="feature-text-content">
+                        <p class="feature-desc">
+                            Задачи в нашей системе - это рабочий инструмент, который помогает держать под контролем каждое судебное заседание, встречу и дедлайн.
+                        </p>
+                        
+                        <ul class="feature-list">
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <div><strong>Гибкость:</strong> Создавайте задачи на конкретный день и перемещайте их.</div>
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <div><strong>Фокус на результате:</strong> Отмечайте выполненные дела одним кликом, чтобы видеть прогресс.</div>
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <div><strong>Все под рукой:</strong> Задачи всегда перед глазами - в календаре и в общем списке.</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+    <!-- СТРАНИЦА КАЛЕНДАРЯ -->
+    <div id="calendar-view" style="display: none;">
+        <main class="hero calendar-page">
+            
+            <!-- Верхняя панель управления -->
+            <div class="calendar-topbar">
+                <div class="view-switcher">
+                    <button class="view-btn active" data-view="week">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        Неделя
+                    </button>
+                    <button class="view-btn" data-view="month">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        Месяц
+                    </button>
+                </div>
+                <div class="calendar-controls">
+                    <button class="cal-nav-btn" id="prevPeriod">&#10094;</button>
+                    <span id="currentPeriodTitle">Октябрь 2026</span>
+                    <button class="cal-nav-btn" id="nextPeriod">&#10095;</button>
+                    <button class="today-btn" id="todayBtn">Сегодня</button>
+                </div>
+            </div>
+
+            <!-- Контейнер для вида "Неделя" -->
+            <div id="weekView" class="week-view">
+                <div class="week-days-header" id="weekDaysHeader"></div>
+                <div class="week-grid" id="weekGrid"></div>
+            </div>
+
+            <!-- Контейнер для вида "Месяц" -->
+            <div id="monthView" class="month-view" style="display: none;">
+                <div class="calendar-weekdays">
+                    <div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Вс</div>
+                </div>
+                <div class="calendar-grid" id="monthGrid"></div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО: добавление задачи -->
+    <div class="modal-overlay" id="taskModal" style="display: none;">
+        <div class="modal-content">
+            <h3>Новая задача</h3>
+            <p class="modal-date" id="modalDate"></p>
+            <input type="text" id="taskInput" placeholder="Например: Подготовить исковое заявление" maxlength="100">
+            <div class="modal-actions">
+                <button class="modal-btn modal-cancel" id="cancelTask">Отмена</button>
+                <button class="modal-btn modal-save" id="saveTask">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!--            СТРАНИЦА ЗАДАЧ (КАНБАН)           -->
+    <!-- ============================================ -->
+    <div id="tasks-view" style="display: none;">
+
+        <!-- ПАНЕЛЬ ДОСОК (ПРОСТРАНСТВ) -->
+        <div class="boards-panel">
+            <div class="boards-tabs" id="boardsTabs">
+                <!-- Сюда JS будет рендерить вкладки досок, и в конце — кнопку "+" -->
+            </div>
+        </div>
+
+        <main class="hero tasks-page">
+
+            <!-- ТУЛБАР -->
+            <div class="tasks-toolbar">
+                <div class="toolbar-left">
+                    <!-- 1. Настройки доски -->
+                    <button class="toolbar-settings-btn" id="boardSettingsBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        Настройки
+                    </button>
+
+                    <!-- 2. МАРКЕРЫ (теперь слева) -->
+                    <div class="markers-area">
+                        <div class="marker-dropdown" id="dropdown-assignee">
+                            <button class="marker-trigger" data-marker="assignee">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                Исполнитель
+                            </button>
+                            <div class="marker-dropdown-menu">
+                                <div class="marker-drag-item" draggable="true" data-marker="assignee" data-value="А. Смирнов">👤 А. Смирнов</div>
+                                <div class="marker-drag-item" draggable="true" data-marker="assignee" data-value="И. Иванов">👤 И. Иванов</div>
+                            </div>
+                        </div>
+                        <div class="marker-dropdown" id="dropdown-deadline">
+                            <button class="marker-trigger" data-marker="deadline">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                Дедлайн
+                            </button>
+                            <div class="marker-dropdown-menu">
+                                <div class="marker-drag-item" draggable="true" data-marker="deadline" data-value="Сегодня">📅 Сегодня</div>
+                                <div class="marker-drag-item" draggable="true" data-marker="deadline" data-value="Завтра">📅 Завтра</div>
+                                <div class="marker-drag-item" draggable="true" data-marker="deadline" data-value="12 ноя">📅 12 ноя</div>
+                            </div>
+                        </div>
+                        <div class="marker-dropdown" id="dropdown-priority">
+                            <button class="marker-trigger" data-marker="priority">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                                Приоритет
+                            </button>
+                            <div class="marker-dropdown-menu">
+                                <div class="marker-drag-item" draggable="true" data-marker="priority" data-value="high">🔴 Высокий</div>
+                                <div class="marker-drag-item" draggable="true" data-marker="priority" data-value="medium">🟡 Средний</div>
+                                <div class="marker-drag-item" draggable="true" data-marker="priority" data-value="low">🟢 Низкий</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Отображение (теперь справа) -->
+                <div class="toolbar-right">
+                    <div class="view-switcher-wrapper">
+                        <button class="toolbar-icon-btn active" data-view="board" title="В виде колонок">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="18" rx="1"></rect><rect x="14" y="3" width="7" height="18" rx="1"></rect></svg>
+                        </button>
+                        <button class="toolbar-icon-btn" data-view="calendar" title="В виде календаря">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        </button>
+                        <button class="toolbar-icon-btn" data-view="gantt" title="Диаграмма Ганта">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ОТОБРАЖЕНИЕ (Колонки) -->
+            <div id="boardViewContainer" class="board-view-container active">
+                <div class="kanban-board" id="kanbanBoard">
+                    <div class="kanban-column" data-status="todo">
+                        <div class="kanban-column-header">
+                            <div class="kanban-col-title"><span class="kanban-dot" style="background:#f59e0b"></span>Нужно сделать</div>
+                        </div>
+                        <button class="kanban-add-btn" data-status="todo">+ Добавить задачу</button>
+                        <div class="kanban-cards" data-status="todo"></div>
+                    </div>
+                    <div class="kanban-column" data-status="doing">
+                        <div class="kanban-column-header">
+                            <div class="kanban-col-title"><span class="kanban-dot" style="background:#8b5cf6"></span>В работе</div>
+                        </div>
+                        <button class="kanban-add-btn" data-status="doing">+ Добавить задачу</button>
+                        <div class="kanban-cards" data-status="doing"></div>
+                    </div>
+                    <div class="kanban-column" data-status="done">
+                        <div class="kanban-column-header">
+                            <div class="kanban-col-title"><span class="kanban-dot" style="background:#10b981"></span>Готово</div>
+                        </div>
+                        <button class="kanban-add-btn" data-status="done">+ Добавить задачу</button>
+                        <div class="kanban-cards" data-status="done"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ЗАГЛУШКИ -->
+            <div id="calendarViewContainer" class="board-view-container"><div class="view-placeholder">Календарь в разработке</div></div>
+            <div id="ganttViewContainer" class="board-view-container"><div class="view-placeholder">Гант в разработке</div></div>
+
+        </main>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО: новая задача -->
+    <div class="modal-overlay" id="kanbanModal" style="display: none;">
+        <div class="modal-content">
+            <h3>Новая задача</h3>
+            <p class="modal-date">Опишите, что нужно сделать</p>
+            <input type="text" id="kanbanInput" placeholder="Например: Подготовить исковое заявление" maxlength="120">
+            <div class="modal-actions">
+                <button class="modal-btn modal-cancel" id="kanbanCancel">Отмена</button>
+                <button class="modal-btn modal-save" id="kanbanSave">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО: новая подзадача -->
+    <div class="modal-overlay" id="subtaskModal" style="display: none;">
+        <div class="modal-content">
+            <h3>Новая подзадача</h3>
+            <p class="modal-date">Что нужно сделать в рамках этой задачи?</p>
+            <input type="text" id="subtaskInput" placeholder="Например: Собрать документы" maxlength="120">
+            <div class="modal-actions">
+                <button class="modal-btn modal-cancel" id="subtaskCancel">Отмена</button>
+                <button class="modal-btn modal-save" id="subtaskSave">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО: новая доска -->
+    <div class="modal-overlay" id="boardModal" style="display: none;">
+        <div class="modal-content">
+            <h3>Новая доска</h3>
+            <p class="modal-date">Дайте название вашему пространству</p>
+            <input type="text" id="boardInput" placeholder="Например: Проект Альфа" maxlength="40">
+            <div class="modal-actions">
+                <button class="modal-btn modal-cancel" id="boardCancel">Отмена</button>
+                <button class="modal-btn modal-save" id="boardSave">Создать</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подвал сайта -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- Левая колонка -->
+            <div class="footer-column">
+                <h4>Информация:</h4>
+                <ul class="footer-links">
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Задать вопрос</a></li>
+                    <li><a href="#">Заказать звонок</a></li>
+                    <li><a href="#">Сообщить о проблеме</a></li>
+                    <li><a href="#">База знаний</a></li>
+                    <li><a href="#">Скачать приложение</a></li>
+                    <li><a href="#">Политика конфиденциальности</a></li>
+                    <li><a href="#">Согласие ОПД клиента</a></li>
+                    <li><a href="#">Публичная оферта</a></li>
+                </ul>
+            </div>
+
+            <!-- Правая колонка -->
+            <div class="footer-column">
+                <div class="contact-group">
+                    <h4>Отдел продаж:</h4>
+                    <a href="mailto:op@lawan.com"></a>
+                </div>
+                <div class="contact-group">
+                    <h4>Поддержка:</h4>
+                    <a href="mailto:support@lawan.com">support@lawan.com</a>
+                </div>
+                <div class="contact-group">
+                    <h4>Поддержка коробочных клиентов:</h4>
+                    <a href="mailto:inf@lawan.com">inf@lawan.com</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    <script src="tasks.js"></script>
+</body>
+</html>

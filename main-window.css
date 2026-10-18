@@ -1,0 +1,263 @@
+/* ============================================ */
+/*        БЛОК "ФИЧИ" НА ГЛАВНОЙ                */
+/* ============================================ */
+
+.feature-showcase {
+    width: 100%;
+    padding: 0px 2px;
+    background-color: #ffffff; /* Белый фон */
+}
+/* --- Новый выделенный заголовок --- */
+.feature-highlight-header {
+    max-width: 800px;
+    margin: 0 auto 10px auto; /* Центрируем по горизонтали и даем отступ снизу до контента */
+    text-align: center; /* Текст по центру */
+    
+    /* Делаем красивый фон-плашку */
+    background-color: #fcf8fb; /* Очень светлый серо-голубой */
+    padding: 40px 30px;
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.feature-highlight-header .feature-label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #a040ff;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+}
+
+.feature-highlight-header h2 {
+    font-size: 30px;
+    line-height: 1.2;
+    font-weight: 800;
+    color: #111827;
+    letter-spacing: -1px;
+    margin: 0; /* Убираем лишние отступы, так как они есть у плашки */
+}
+
+.feature-showcase-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+
+/* --- Левая часть (Текст) --- */
+.feature-text-content {
+    flex: 0.8; /* Текст занимает 0.8 части пространства (стало меньше) */
+    max-width: 450px; /* Ограничиваем максимальную ширину текста */
+}
+
+
+.feature-label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #407bff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+}
+
+.feature-desc {
+    font-size: 25px;
+    line-height: 1.6;
+    color: #4b5563;
+    margin-bottom: 32px;
+}
+
+/* Список с галочками */
+.feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 16px;
+    color: #374151;
+    line-height: 1.5;
+}
+
+.feature-list li svg {
+    width: 20px;
+    height: 20px;
+    color: #10b981; /* Зеленая галочка */
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.feature-list li strong {
+    color: #111827;
+    font-weight: 600;
+}
+
+/* --- Правая часть (Картинки) --- */
+.feature-image-content {
+    flex: 2; /* Картинки занимают 2 части пространства (стало больше) */
+    display: flex;
+    flex-direction: column; /* Одна картинка под другой */
+    gap: 15px; 
+    justify-content: center;
+    align-items: center;
+}
+
+.image-wrapper {
+    width: 100%; /* Каждая картинка занимает всю ширину правой колонки */
+    display: flex;
+    justify-content: center;
+}
+
+.image-placeholder {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.image-placeholder:hover {
+    transform: translateY(-5px);
+}
+
+/* Стили для реальной картинки */
+.image-placeholder img {
+    width: 100%;
+    height: auto; /* Картинка сама подстраивает высоту */
+    object-fit: contain;
+    display: block;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+/* Если картинок нет (пустые заглушки) */
+.image-placeholder:empty {
+    min-height: 200px; /* Высота пустого блока */
+    background-color: #f9fafb;
+    border: 2px dashed #e5e7eb;
+}
+
+/* --- Мобильная адаптация --- */
+@media (max-width: 900px) {
+    .feature-showcase-container {
+        flex-direction: column-reverse;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .feature-text-content {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature-list {
+        text-align: left;
+    }
+
+    .feature-text-content h2 {
+        font-size: 28px;
+    }
+
+    .feature-desc {
+        font-size: 16px;
+    }
+
+    .feature-showcase {
+        padding: 50px 20px;
+    }
+
+    /* На мобильных картинки встают друг под другом */
+    .feature-image-content {
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+
+/* ============================================ */
+/*        БЛОК "ЗАДАЧИ" С ВИДЕО                 */
+/* ============================================ */
+
+/* Контейнер для видео */
+.video-content {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-wrapper {
+    width: 100%;
+    max-width: 1200px; /* Ограничиваем максимальную ширину видео */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); /* Красивая тень */
+    background: #000; /* Фон под видео */
+    position: relative;
+    aspect-ratio: 16 / 9; /* Стандартные пропорции для видео */
+}
+
+/* Стили для самого тега video */
+.video-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Видео заполняет контейнер */
+    display: block;
+}
+
+/* Заглушка, пока нет видео */
+.video-placeholder {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #f9fafb;
+    color: #9ca3af;
+    font-size: 15px;
+    font-weight: 500;
+    border: 2px dashed #e5e7eb;
+    border-radius: 20px;
+}
+
+/* Реверсивный блок (текст справа, видео слева) */
+.feature-reverse .feature-showcase-container {
+    flex-direction: row-reverse; /* Меняем стороны местами */
+}
+
+/* --- Мобильная адаптация для блока с видео --- */
+@media (max-width: 900px) {
+    .feature-reverse .feature-showcase-container {
+        flex-direction: column-reverse; /* На мобильных видео будет сверху */
+    }
+
+    .video-content {
+        width: 100%;
+    }
+    
+    .video-wrapper {
+        max-width: 100%;
+        aspect-ratio: 16 / 9;
+    }
+}

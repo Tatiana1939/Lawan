@@ -1,0 +1,1449 @@
+/* --- Сброс стилей --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fff;
+    color: #1a1a1a;
+    overflow-x: hidden;
+}
+
+/* ============================== */
+/*            ШАПКА               */
+/* ============================== */
+/* Новый фон на всю ширину */
+.header-wrapper {
+    width: 100%;
+    background-color: #f3f2f2;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    background: #fff;
+    position: relative;
+    background: transparent; /* Убираем фон у самой шапки */
+}
+
+/* Обертка для nav + actions */
+.nav-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+/* Кнопка-бургер (по умолчанию скрыта) */
+.burger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.burger-btn span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #1a1a1a;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Анимация бургера в крестик */
+.burger-btn.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+.burger-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+.burger-btn.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Логотип */
+.logo {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.5px;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.logo-icon {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    top: -2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Навигация */
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 32px;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: #1a1a1a;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.2s;
+}
+
+nav a:hover {
+    color: #555;
+}
+
+.arrow-down {
+    width: 10px;
+    height: 10px;
+    fill: #1a1a1a;
+    margin-top: 2px;
+    opacity: 0.6;
+}
+
+/* Правая часть хедера (кнопки) */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+}
+
+.icon-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: #555;
+}
+
+.btn-login {
+    text-decoration: none;
+    color: #2563eb;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 8px 16px;
+    border: 1px solid #dbeafe;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: all 0.2s;
+}
+
+.btn-login:hover {
+    background-color: #eff6ff;
+}
+
+.btn-register {
+    text-decoration: none;
+    color: #fff;
+    background-color: #407bff;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.btn-register:hover {
+    background-color: #3266d9;
+}
+
+/* Фокус для кнопок (доступность) */
+.btn-login:focus-visible,
+.btn-register:focus-visible,
+.feature-item:focus-visible,
+.burger-btn:focus-visible,
+.icon-btn:focus-visible {
+    outline: 2px solid #407bff;
+    outline-offset: 2px;
+}
+
+/* ============================== */
+/*           ГЛАВНЫЙ БЛОК         */
+/* ============================== */
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 70px;
+    padding-bottom: 60px;
+}
+
+h1 {
+    font-size: 55px;
+    line-height: 1.1;
+    font-weight: 800;
+    color: #0f0f0f;
+    letter-spacing: -1.5px;
+    max-width: 900px;
+    margin-bottom: 80px;
+}
+
+.hero-subtitle {
+    font-size: 20px;
+    color: #4b5563;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: -30px auto 30px auto; /* Поднимаем ближе к заголовку */
+    text-align: center;
+}
+
+/* ============================== */
+/*   ПЛАШКА С КНОПКАМИ (TABS)     */
+/* ============================== */
+
+.feature-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eef0f3;
+    padding: 6px;
+    border-radius: 16px;
+    gap: 4px;
+    width: fit-content;
+    margin: 0 auto 40px auto;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #4b5563;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background: transparent;
+    border: none;
+    white-space: nowrap;
+}
+
+.feature-item:hover:not(.active) {
+    color: #111827;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.feature-item.active {
+    background-color: #ffffff;
+    color: #111827;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.feature-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.bg-blue { background-color: #eef2ff; color: #4f46e5; }
+.bg-purple { background-color: #f3e8ff; color: #9333ea; }
+
+.feature-icon-wrapper svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* ============================== */
+/*          КОНТЕЙНЕР ЧАТОВ       */
+/* ============================== */
+
+.chats-wrapper {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+/* Скрываем все чаты по умолчанию */
+.chat-view {
+    display: none;
+}
+
+/* Показываем только чат с классом active */
+.chat-view.active {
+    display: flex;
+    justify-content: center;
+}
+
+/* ============================== */
+/*          МАКЕТ МЕССЕНДЖЕРА     */
+/* ============================== */
+
+.messenger-mockup {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+}
+
+/* --- Шапка чата --- */
+.messenger-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    background: #ffffff;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ai-avatar {
+    background-color: #407bff;
+    color: white;
+}
+.ai-avatar svg {
+    width: 20px;
+    height: 20px;
+}
+
+.lawyer-avatar {
+    background-color: #e5e7eb;
+    color: #4b5563;
+}
+.lawyer-avatar svg {
+    width: 20px;
+    height: 20px;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: #111827;
+}
+
+.user-status {
+    font-size: 12px;
+    color: #10b981;
+    font-weight: 500;
+}
+
+.user-status.offline {
+    color: #9ca3af;
+    font-weight: 400;
+}
+
+.messenger-header .header-actions {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.icon-dots {
+    color: #9ca3af;
+    font-size: 20px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: color 0.2s;
+}
+
+.icon-dots:hover {
+    color: #4b5563;
+}
+
+/* --- Тело чата --- */
+.messenger-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #f9fafb;
+    min-height: 300px;
+}
+
+.chat-date {
+    text-align: center;
+    font-size: 12px;
+    color: #6b7280;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 4px 12px;
+    border-radius: 12px;
+    align-self: center;
+    margin-bottom: 8px;
+}
+
+.message-row {
+    display: flex;
+    width: 100%;
+}
+
+.message-row.outgoing { justify-content: flex-end; }
+.message-row.incoming { justify-content: flex-start; }
+
+.message-bubble {
+    max-width: 85%;
+    padding: 8px 12px 6px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.outgoing .message-bubble {
+    background-color: #407bff;
+    color: #ffffff;
+    border-bottom-right-radius: 2px;
+}
+
+.incoming .message-bubble {
+    background-color: #ffffff;
+    color: #1f2937;
+    border-bottom-left-radius: 2px;
+}
+
+.message-text {
+    margin-bottom: 4px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.message-meta {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+.outgoing .message-meta { color: rgba(255, 255, 255, 0.8); }
+.incoming .message-meta { color: #9ca3af; }
+
+.message-status svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+}
+
+/* --- Индикатор набора текста --- */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 16px;
+    background: #ffffff;
+    border-radius: 12px;
+    border-bottom-left-radius: 2px;
+    width: fit-content;
+}
+
+.typing-indicator span {
+    width: 6px;
+    height: 6px;
+    background-color: #9ca3af;
+    border-radius: 50%;
+    animation: typing 1.4s infinite ease-in-out both;
+}
+
+.typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+.typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typing {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+/* --- Вложенный файл --- */
+.file-bubble {
+    padding: 12px 14px 8px 14px;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+}
+
+.file-icon {
+    width: 36px;
+    height: 36px;
+    background: #f3f4f6;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #407bff;
+    flex-shrink: 0;
+}
+
+.file-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.file-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.file-name {
+    font-weight: 500;
+    font-size: 13px;
+    color: #111827;
+}
+
+.file-size {
+    font-size: 11px;
+    color: #6b7280;
+}
+
+/* --- Строка ввода --- */
+.messenger-input {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    background: #ffffff;
+    border-top: 1px solid #f3f4f6;
+    gap: 10px;
+}
+
+.messenger-input input {
+    flex-grow: 1;
+    min-width: 0;
+    border: none;
+    background: #f3f4f6;
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    color: #4b5563;
+}
+
+.messenger-input input::placeholder {
+    color: #9ca3af;
+}
+
+.attach-btn,
+.send-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    color: #9ca3af;
+    transition: color 0.2s;
+    flex-shrink: 0;
+}
+
+.attach-btn:hover { color: #4b5563; }
+.send-btn { color: #407bff; }
+.send-btn:hover { color: #2563eb; }
+
+.attach-btn svg,
+.send-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ============================== */
+/*            ПОДВАЛ              */
+/* ============================== */
+
+.site-footer {
+    background-color: #f8f9fa;
+    padding: 80px 40px 100px;
+    color: #4b5563;
+    font-size: 18px;
+    margin-top: 60px;
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 200px;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-column h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 24px;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #4b5563;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: #111;
+}
+
+.contact-group {
+    margin-bottom: 28px;
+}
+
+.contact-group h4 {
+    margin-bottom: 8px;
+}
+
+.contact-group a {
+    text-decoration: none;
+    color: #4b5563;
+    font-weight: 400;
+    transition: color 0.2s;
+}
+
+.contact-group a:hover {
+    color: #111;
+}
+
+/* ============================== */
+/*            АДАПТИВ             */
+/* ============================== */
+
+/* Планшеты и небольшие ноутбуки */
+@media (max-width: 1024px) {
+    header { padding: 15px 20px; }
+    nav ul { gap: 20px; }
+    h1 { font-size: 44px; }
+    .footer-container { gap: 80px; }
+}
+
+/* Мобильные устройства */
+@media (max-width: 768px) {
+
+    /* --- Шапка сайта --- */
+    header {
+        padding: 15px 20px;
+    }
+
+    .burger-btn {
+        display: flex;
+    }
+
+    .nav-wrapper {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 320px;
+        height: 100vh;
+        background: #ffffff;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 80px 30px 30px 30px;
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+        transition: right 0.4s ease;
+        z-index: 1000;
+        gap: 30px;
+        overflow-y: auto;
+    }
+
+    .nav-wrapper.open {
+        right: 0;
+    }
+
+    nav {
+        width: 100%;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+        width: 100%;
+    }
+
+    nav a {
+        font-size: 18px;
+    }
+
+    .header-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        width: 100%;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+    }
+
+    .btn-login,
+    .btn-register {
+        text-align: center;
+        padding: 12px 16px;
+        font-size: 16px;
+    }
+
+    .icon-btn {
+        align-self: flex-start;
+        padding: 8px;
+    }
+
+    /* --- Контент --- */
+    .hero {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    h1 {
+        font-size: 28px;
+        letter-spacing: -0.5px;
+        margin-bottom: 30px;
+        padding: 0 10px;
+    }
+
+    /* --- Кнопки (feature-pill) --- */
+    .feature-pill {
+        flex-direction: column;
+        width: 100%;
+        max-width: 400px;
+        background: #eef0f3;
+        padding: 6px;
+        border-radius: 16px;
+        gap: 4px;
+        margin: 0 auto 30px auto;
+    }
+
+    .feature-item {
+        width: 100%;
+        justify-content: flex-start;
+        padding: 12px 16px;
+        font-size: 14px;
+        white-space: normal;
+        text-align: left;
+    }
+
+    /* --- Чат --- */
+    .messenger-mockup {
+        max-width: 100%;
+        border-radius: 12px;
+        margin: 10px auto;
+    }
+
+    .messenger-body {
+        padding: 12px;
+        min-height: 250px;
+    }
+
+    .message-bubble {
+        max-width: 90%;
+        font-size: 13px;
+    }
+
+    .messenger-input {
+        padding: 8px 12px;
+    }
+
+    .messenger-input input {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+
+    .messenger-header .header-actions {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+    
+    .site-footer {
+        padding: 50px 20px;
+        margin-top: 40px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        gap: 50px;
+    }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 380px) {
+    h1 { font-size: 24px; }
+    .feature-item { font-size: 13px; padding: 10px 12px; }
+    .message-bubble { font-size: 12px; }
+    .icon-dots { font-size: 16px; }
+}
+
+/* ============================================ */
+/*          РАЗДЕЛИТЕЛЬ СЕКЦИЙ                   */
+/* ============================================ */
+
+.section-divider {
+    width: 100%;
+    height: 1px;
+    background-color: #e5e6eb; /* Светло-серая линия */
+    margin: 50px auto; /* Отступ сверху и снизу по 80px (регулируйте по вкусу) */
+    position: relative;
+}
+
+/* ============================================ */
+/*              РАБОЧИЙ КАЛЕНДАРЬ               */
+/* ============================================ */
+
+.calendar-page {
+    padding-top: 40px;
+    max-width: 100% !important; /* Убираем ограничение в 1200px */
+    width: 100% !important;
+    padding-left: 40px;
+    padding-right: 40px;
+    box-sizing: border-box;
+}
+
+/* Верхняя панель — центрируем и ограничиваем её ширину */
+.calendar-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto 24px auto;
+    max-width: 1400px; /* Панель не шире 1400px */
+    width: 100%;
+}
+
+.view-switcher {
+    display: flex;
+    background: #f3f4f6;
+    border-radius: 10px;
+    padding: 4px;
+    gap: 4px;
+}
+
+.view-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.view-btn:hover {
+    color: #111827;
+}
+
+.view-btn.active {
+    background: #ffffff;
+    color: #111827;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.calendar-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.calendar-controls span {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    min-width: 150px;
+    text-align: center;
+}
+
+.today-btn {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.today-btn:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+}
+
+/* ================= НЕДЕЛЬНЫЙ ВИД ================= */
+.week-view {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100% !important;
+    max-width: 1400px !important;
+    margin: 0 auto; /* Центрируем сам блок */
+}
+
+.week-days-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.week-day-header-item {
+    padding: 12px;
+    text-align: center;
+    border-right: 1px solid #e5e7eb;
+}
+.week-day-header-item:last-child { border-right: none; }
+
+.wdh-name { font-size: 13px; font-weight: 500; color: #6b7280; display: block; margin-bottom: 4px; }
+.wdh-num { font-size: 18px; font-weight: 600; color: #111827; }
+.wdh-num.today { color: #407bff; }
+
+.week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    min-height: 500px;
+}
+
+.week-day-column {
+    border-right: 1px solid #e5e7eb;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: #ffffff;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.week-day-column:last-child { border-right: none; }
+.week-day-column:hover { background: #f9fafb; }
+
+/* Карточка задачи */
+.task-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    transition: box-shadow 0.2s;
+    position: relative;
+     /* НОВОЕ: Ограничиваем ширину и разрешаем перенос */
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word; /* Разрешает перенос длинных слов */
+    word-wrap: break-word;
+ 
+}
+
+.task-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+
+.task-card.completed {
+    background: #f9fafb;
+    opacity: 0.8;
+}
+
+.task-card-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #111827;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    /* НОВОЕ: Текст может занимать несколько строк */
+    white-space: normal; 
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.task-card.completed .task-card-title {
+    text-decoration: line-through;
+    color: #9ca3af;
+}
+
+.task-card-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.task-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    transition: all 0.2s;
+}
+
+.task-btn:hover { background: #f3f4f6; color: #374151; }
+.task-btn.check-btn:hover { color: #10b981; background: #ecfdf5; }
+.task-btn.delete-btn:hover { color: #ef4444; background: #fef2f2; }
+
+/* ================= МЕСЯЧНЫЙ ВИД ================= */
+.month-view {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px;
+    width: 100% !important;
+    max-width: 1400px !important;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.calendar-weekdays div {
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b7280;
+    padding: 8px 0;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.cal-month-day {
+    min-height: 100px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.cal-month-day:hover { background: #f9fafb; border-color: #e5e7eb; }
+.cal-month-day.empty { cursor: default; background: transparent; border: none; }
+
+.month-day-num {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 4px;
+}
+
+.cal-month-day.today .month-day-num {
+    background: #407bff;
+    color: white;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+/* Мини-задачи в месячном виде */
+.month-task-dot {
+    font-size: 11px;
+    color: #6b7280;
+    background: #f3f4f6;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-bottom: 2px;
+    
+     /* НОВОЕ: вместо обрезки в одну строку — разрешаем перенос */
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    line-height: 1.3;
+}
+/* Надпись "Добавь задачу" в месячном виде */
+.empty-today-msg-month {
+    font-size: 11px;
+    color: #9ca3af;
+    font-style: italic;
+    line-height: 1.3;
+    margin-top: 4px;
+    padding-right: 4px;
+}
+
+/* ================= МОДАЛЬНОЕ ОКНО ================= */
+/* (Оставляем стили из прошлого шага для модалки, они не меняются) */
+
+/* ============================================ */
+/*      МОДАЛЬНОЕ ОКНО                          */
+/* ============================================ */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+.modal-content {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 28px;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.modal-date {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 20px;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    margin-bottom: 20px;
+    transition: border 0.2s;
+}
+
+.modal-content input:focus {
+    border-color: #407bff;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.modal-btn {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+}
+
+.modal-cancel {
+    background: #f3f4f6;
+    color: #4b5563;
+}
+
+.modal-cancel:hover {
+    background: #e5e7eb;
+}
+
+.modal-save {
+    background: #407bff;
+    color: #ffffff;
+}
+
+.modal-save:hover {
+    background: #3266d9;
+}
+
+/* ============================================ */
+/*      АДАПТИВ ДЛЯ ПЛАНЕРА И МОДАЛКИ          */
+/* ============================================ */
+
+/* ============================================ */
+/*      МОБИЛЬНАЯ ВЕРСИЯ КАЛЕНДАРЯ              */
+/* ============================================ */
+
+@media (max-width: 768px) {
+
+    /* --- 1. Верхняя панель --- */
+    .calendar-topbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding: 0;
+    }
+
+    .view-switcher {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .view-btn {
+        flex: 1;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .calendar-controls {
+        justify-content: space-between;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .calendar-controls span {
+        font-size: 15px;
+        min-width: auto;
+    }
+
+    .today-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    /* --- 2. Недельный вид (переделываем в ленту) --- */
+    .week-view {
+        border-radius: 10px;
+    }
+
+    /* Скрываем заголовки дней недели (Пн, Вт...) */
+    .week-days-header {
+        display: none;
+    }
+
+    /* Колонки превращаем в вертикальную ленту */
+    .week-grid {
+        display: flex;
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .week-day-column {
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 12px;
+        flex-direction: row; /* День и задачи в строку */
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .week-day-column:last-child {
+        border-bottom: none;
+    }
+
+    /* Добавляем дату слева от задач в мобильном виде */
+    .week-day-column::before {
+        content: attr(data-date-label);
+        font-size: 14px;
+        font-weight: 700;
+        color: #111827;
+        min-width: 60px;
+        flex-shrink: 0;
+        padding-top: 6px;
+    }
+
+    /* Контейнер для задач в колонке */
+    .week-day-column > div {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* --- 3. Карточки задач --- */
+    .task-card {
+        padding: 10px 12px;
+    }
+
+    .task-card-title {
+        font-size: 14px;
+    }
+
+    .task-btn {
+        padding: 8px; /* Крупнее для пальца */
+    }
+
+    .task-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* --- 4. Месячный вид --- */
+    .month-view {
+        padding: 8px;
+    }
+
+    .calendar-weekdays div {
+        font-size: 11px;
+        padding: 6px 0;
+    }
+
+    .cal-month-day {
+        min-height: 70px; /* Меньше высота */
+        padding: 4px;
+        border-radius: 6px;
+    }
+
+    .month-day-num {
+        font-size: 12px;
+        margin-bottom: 2px;
+    }
+
+    /* Задачи в месячном виде — аккуратно обрезаем */
+    .month-task-dot {
+        font-size: 9px;
+        padding: 2px 4px;
+        margin-bottom: 2px;
+        border-radius: 3px;
+        
+        /* Обрезаем в одну строку с троеточием */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        display: block;
+    }
+
+    /* Текст "Добавь задачу" в месячном виде */
+    .empty-today-msg-month {
+        font-size: 9px;
+        line-height: 1.2;
+        margin-top: 2px;
+    }
+
+    /* --- 5. Модальное окно --- */
+    .modal-content {
+        padding: 20px;
+        border-radius: 14px;
+        margin: 10px;
+    }
+
+    .modal-content h3 {
+        font-size: 18px;
+    }
+
+    .modal-content input {
+        font-size: 16px; /* 16px важно, чтобы iOS не зумил при фокусе */
+        padding: 12px;
+    }
+
+    .modal-btn {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+}
+
+/* Очень маленькие экраны (iPhone SE, 320px) */
+@media (max-width: 380px) {
+    .week-day-column::before {
+        font-size: 12px;
+        min-width: 50px;
+    }
+    
+    .cal-month-day {
+        min-height: 60px;
+    }
+    
+    .month-task-dot {
+        font-size: 8px;
+    }
+}
+
+
