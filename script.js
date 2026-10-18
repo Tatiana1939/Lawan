@@ -107,34 +107,56 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentDate = new Date(2026, 9, 17); // 17 октября 2026 (месяц 9 = октябрь)
     let currentView = 'week'; // 'week' или 'month'
     
-    // Загрузка/Сохранение (Формат: { "2026-10-17": [{id, text, completed}] })
-    function loadTasks() {
-        try { return JSON.parse(localStorage.getItem('plannerTasksV2') || '{}'); } 
+    const TASKS_KEY = 'plannerTasksV4';
+
+    function loadAllTasks() {
+        try { return JSON.parse(localStorage.getItem(TASKS_KEY) || '{}'); }
         catch (e) { return {}; }
     }
-    function saveTasks(tasks) {
-        localStorage.setItem('plannerTasksV2', JSON.stringify(tasks));
+    function saveAllTasks(all) {
+        localStorage.setItem(TASKS_KEY, JSON.stringify(all));
     }
 
+    // Задачи календаря = все задачи всех досок, у которых есть dueDate
+    function getCalendarTasks() {
+        const all = loadAllTasks();
+        const list = [];
+        Object.keys(all).forEach(boardId => {
+            (all[boardId] || []).forEach(task => {
+                if (task.dueDate) list.push({ ...task, boardId });
+            });
+        });
+        return list;
+    }
+
+    // Сгруппировать по дате: { 'YYYY-MM-DD': [task, ...] }
+    function groupByDate(tasks) {
+        const byDate = {};
+        tasks.forEach(t => {
+            (byDate[t.dueDate] = byDate[t.dueDate] || []).push(t);
+        });
+        return byDate;
+    }
+
+    // Хелперы для дат (дублируем в этот файл, чтобы не зависеть от канбана)
     function formatDateKey(year, month, day) {
         return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     }
 
     // --- Отрисовка ---
     function render() {
-        const allTasks = loadTasks();
-        
+        const byDate = groupByDate(getCalendarTasks());
         if (currentView === 'week') {
             document.getElementById('weekView').style.display = 'flex';
             document.getElementById('monthView').style.display = 'none';
-            renderWeek(allTasks);
+            renderWeek(byDate);
         } else {
             document.getElementById('weekView').style.display = 'none';
             document.getElementById('monthView').style.display = 'block';
-            renderMonth(allTasks);
+            renderMonth(byDate);
         }
     }
-
+    
     function renderWeek(allTasks) {
         const header = document.getElementById('weekDaysHeader');
         const grid = document.getElementById('weekGrid');
@@ -295,24 +317,34 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.dataset.dateKey = dateKey;
     }
 
-    function toggleTask(dateKey, taskId) {
-        const allTasks = loadTasks();
-        if (!allTasks[dateKey]) return;
-        const task = allTasks[dateKey].find(t => t.id === taskId);
-        if (task) {
-            task.completed = !task.completed;
-            saveTasks(allTasks);
-            render();
+    function findTaskById(all, taskId) {
+        for (const boardId of Object.keys(all)) {
+            const t = (all[boardId] || []).find(x => x.id === taskId);
+            if (t) return { boardId, task: t };
         }
+        return null;
     }
-
-    function deleteTask(dateKey, taskId) {
-        const allTasks = loadTasks();
-        if (!allTasks[dateKey]) return;
-        allTasks[dateKey] = allTasks[dateKey].filter(t => t.id !== taskId);
-        if (allTasks[dateKey].length === 0) delete allTasks[dateKey];
-        saveTasks(allTasks);
+    
+    function toggleTask(dateKey, taskId) {
+        const all = loadAllTasks();
+        const found = findTaskById(all, taskId);
+        if (!found) return;
+        found.task.completed = !found.task.completed;
+        // Синхронизируем статус для канбана
+        found.task.status = found.task.completed ? 'done' : 'doing';
+        saveAllTasks(all);
         render();
+        if (typeof window.renderKanban === 'function') window.renderKanban();
+    }
+    
+    function deleteTask(dateKey, taskId) {
+        const all = loadAllTasks();
+        for (const boardId of Object.keys(all)) {
+            all[boardId] = (all[boardId] || []).filter(t => t.id !== taskId);
+        }
+        saveAllTasks(all);
+        render();
+        if (typeof window.renderKanban === 'function') window.renderKanban();
     }
 
     // --- Инициализация UI ---
@@ -347,19 +379,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const text = document.getElementById('taskInput').value.trim();
         const dateKey = document.getElementById('taskModal').dataset.dateKey;
         if (!text || !dateKey) return;
-
-        const allTasks = loadTasks();
-        if (!allTasks[dateKey]) allTasks[dateKey] = [];
-        
-        allTasks[dateKey].push({
+    
+        const all = loadAllTasks();
+        const boardId = window.currentBoardId || (Object.keys(all)[0]) || 'board-1';
+        if (!all[boardId]) all[boardId] = [];
+    
+        all[boardId].push({
             id: Date.now().toString(),
             text: text,
-            completed: false
+            status: 'todo',
+            completed: false,
+            markers: {},
+            subtasks: [],
+            dueDate: dateKey            // ← ключевое поле
         });
-        
-        saveTasks(allTasks);
+    
+        saveAllTasks(all);
         document.getElementById('taskModal').style.display = 'none';
         render();
+        if (typeof window.renderKanban === 'function') window.renderKanban();
     };
 
     document.getElementById('cancelTask').onclick = () => {
@@ -373,5 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Первый запуск
     render();
+    // Делаем renderCalendar глобально доступным для канбана
+    window.renderCalendar = render;
 
 });

@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.textContent = board.name;
             btn.onclick = () => {
                 currentBoardId = board.id;
+                window.currentBoardId = currentBoardId;
                 renderBoards();
                 renderKanban();
             };
@@ -233,7 +234,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 let badgesHtml = '';
                 const m = task.markers || {};
                 if (m.assignee) badgesHtml += `<span class="kanban-badge assignee" draggable="true" data-badge-type="assignee" data-badge-value="${escapeHtml(m.assignee)}">👤 ${escapeHtml(m.assignee)} <button class="badge-delete" data-remove="assignee">×</button></span>`;
-                if (m.deadline) badgesHtml += `<span class="kanban-badge deadline" draggable="true" data-badge-type="deadline" data-badge-value="${escapeHtml(m.deadline)}">📅 ${escapeHtml(m.deadline)} <button class="badge-delete" data-remove="deadline">×</button></span>`;
+                if (task.dueDate) {
+                    badgesHtml += `<span class="kanban-badge deadline" draggable="true" data-badge-type="deadline" data-badge-value="${task.dueDate}">📅 ${formatDateHuman(task.dueDate)} <button class="badge-delete" data-remove="deadline">×</button></span>`;
+                }
                 if (m.priority) {
                     const pLabel = m.priority === 'high' ? 'Высокий' : m.priority === 'medium' ? 'Средний' : 'Низкий';
                     badgesHtml += `<span class="kanban-badge priority ${m.priority}" draggable="true" data-badge-type="priority" data-badge-value="${m.priority}">⚡ ${pLabel} <button class="badge-delete" data-remove="priority">×</button></span>`;
@@ -368,6 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     all[currentBoardId][idx].status = !was ? 'done' : 'doing';
                     saveTasks(all);
                     renderKanban();
+                    if (typeof window.renderCalendar === 'function') window.renderCalendar();
                 };
                 card.querySelector('[data-action="delete"]').onclick = (e) => {
                     e.stopPropagation();
@@ -375,6 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     all[currentBoardId] = all[currentBoardId].filter(x => x.id !== task.id);
                     saveTasks(all);
                     renderKanban();
+                    if (typeof window.renderCalendar === 'function') window.renderCalendar();
                 };
 
                 // Drag & Drop карточки
@@ -410,15 +415,70 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Хелперы для дат
+    function formatDateISO(date) {
+        const y = date.getFullYear();
+        const m = String(date.getMonth() + 1).padStart(2, '0');
+        const d = String(date.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    }
+
+    function parseDeadlineValue(value) {
+        const today = new Date();
+        if (value === 'Сегодня') return formatDateISO(today);
+        if (value === 'Завтра') {
+            const t = new Date(today);
+            t.setDate(t.getDate() + 1);
+            return formatDateISO(t);
+        }
+        const months = { 'янв':0,'фев':1,'мар':2,'апр':3,'май':4,'мая':4,'июн':5,'июл':6,'авг':7,'сен':8,'сент':8,'окт':9,'ноя':10,'дек':11 };
+        const m = value.match(/^(\d{1,2})\s+([а-я]+)$/i);
+        if (m) {
+            const day = parseInt(m[1], 10);
+            const key = m[2].toLowerCase().slice(0,3);
+            const mon = months[key];
+            if (mon !== undefined) {
+                let year = today.getFullYear();
+                const candidate = new Date(year, mon, day);
+                if (candidate < new Date(today.getFullYear(), today.getMonth(), today.getDate())) year++;
+                return formatDateISO(new Date(year, mon, day));
+            }
+        }
+        return null;
+    }
+
+    function formatDateHuman(iso) {
+        if (!iso) return '';
+        const d = new Date(iso + 'T00:00:00');
+        const today = new Date(); today.setHours(0,0,0,0);
+        const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+        if (d.getTime() === today.getTime()) return 'Сегодня';
+        if (d.getTime() === tomorrow.getTime()) return 'Завтра';
+        const months = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+        return `${d.getDate()} ${months[d.getMonth()]}`;
+    }
+
     function updateTaskMarker(taskId, type, value) {
         const all = loadTasks();
         const task = all[currentBoardId].find(x => x.id === taskId);
         if (!task) return;
-        if (!task.markers) task.markers = {};
-        if (value === null) delete task.markers[type];
-        else task.markers[type] = value;
+
+        if (type === 'deadline') {
+            if (value === null) {
+                task.dueDate = null;
+            } else {
+                const iso = /^\d{4}-\d{2}-\d{2}$/.test(value) ? value : parseDeadlineValue(value);
+                task.dueDate = iso;
+            }
+        } else {
+            if (!task.markers) task.markers = {};
+            if (value === null) delete task.markers[type];
+            else task.markers[type] = value;
+        }
+
         saveTasks(all);
         renderKanban();
+        if (typeof window.renderCalendar === 'function') window.renderCalendar();
     }
 
     // Дроп карточек в колонки
@@ -438,6 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     task.completed = (task.status === 'done');
                     saveTasks(all);
                     renderKanban();
+                    if (typeof window.renderCalendar === 'function') window.renderCalendar();
                 }
             }
         });
@@ -460,7 +521,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const status = document.getElementById('kanbanModal').dataset.status || 'todo';
         const all = loadTasks();
         if (!all[currentBoardId]) all[currentBoardId] = [];
-        all[currentBoardId].push({ id: Date.now().toString(), text, status, markers: {}, subtasks: [], completed: status === 'done' });
+        all[currentBoardId].push({ id: Date.now().toString(), text, status, markers: {}, subtasks: [], completed: status === 'done', dueDate: null});
         saveTasks(all);
         document.getElementById('kanbanModal').style.display = 'none';
         renderKanban();
@@ -472,4 +533,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function escapeHtml(str) { return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+    // Делаем renderKanban глобально доступным для календаря
+    window.renderKanban = renderKanban;
+    window.currentBoardId = currentBoardId;   // чтобы календарь знал, в какую доску класть
 });
