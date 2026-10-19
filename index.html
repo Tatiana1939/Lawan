@@ -97,7 +97,7 @@
             <div class="chats-wrapper">
                 
                 <!-- ================= ЧАТ 1: ИИ-Помощник ================= -->
-                <div id="chat-ai" class="chat-view active">
+                <div id="chat-ai" class="chat-view active" data-ai-chat-instance>
 
 <div class="messenger-mockup">
 
@@ -123,19 +123,19 @@
 
 <div class="header-actions">
 
-<button class="chat-clear-btn" id="aiClearBtn" title="Очистить чат" type="button">Очистить</button>
+<button class="chat-clear-btn" id="aiClearBtn" data-ai-clear title="Очистить чат" type="button">Очистить</button>
 
 </div>
 
 </div>
 
-<div class="messenger-body ai-chat-body" id="aiChatBody"></div>
+<div class="messenger-body ai-chat-body" id="aiChatBody" data-ai-body></div>
 
-<form class="messenger-input" id="aiChatForm" autocomplete="off">
+<form class="messenger-input" id="aiChatForm" data-ai-form autocomplete="off">
 
-<input type="text" id="aiChatInput" placeholder="Введите сообщение..." maxlength="4000">
+<input type="text" id="aiChatInput" data-ai-input placeholder="Введите сообщение..." maxlength="4000">
 
-<button class="send-btn" id="aiSendBtn" type="submit" title="Отправить">
+<button class="send-btn" id="aiSendBtn" data-ai-send type="submit" title="Отправить">
 
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
 
@@ -539,6 +539,32 @@
             </div>
         </div>
     </footer>
+
+    <!-- Плавающий ИИ-чат доступен на всех представлениях сайта -->
+    <button class="ai-widget-launcher" id="aiWidgetLauncher" type="button" aria-label="Открыть чат с ИИ" aria-controls="aiWidgetPanel" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c-5 0-9 3.4-9 7.7 0 2.4 1.3 4.5 3.5 5.9L6 21l4.1-2.1c.6.1 1.2.2 1.9.2 5 0 9-3.4 9-7.7S17 3 12 3Zm-4 8.1a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Zm4.1 0a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Zm4.1 0a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z"/></svg>
+    </button>
+    <section class="ai-widget-panel" id="aiWidgetPanel" aria-label="Чат с ИИ" hidden>
+        <div class="messenger-mockup ai-widget-mockup" data-ai-chat-instance>
+            <div class="messenger-header">
+                <div class="user-info">
+                    <div class="avatar ai-avatar" aria-hidden="true">ИИ</div>
+                    <div class="user-details"><span class="user-name">ИИ-Помощник</span><span class="user-status" data-ai-status>в сети</span></div>
+                </div>
+                <div class="header-actions">
+                    <button class="chat-clear-btn" data-ai-clear type="button" title="Очистить чат">Очистить</button>
+                    <button class="ai-widget-close" id="aiWidgetClose" type="button" aria-label="Закрыть чат">×</button>
+                </div>
+            </div>
+            <div class="messenger-body ai-chat-body" data-ai-body></div>
+            <form class="messenger-input" data-ai-form autocomplete="off">
+                <input type="text" data-ai-input placeholder="Введите сообщение..." maxlength="4000" aria-label="Сообщение для ИИ">
+                <button class="send-btn" data-ai-send type="submit" title="Отправить" aria-label="Отправить">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+            </form>
+        </div>
+    </section>
     <script src="script.js"></script>
     <script src="tasks.js"></script>
 <script src="chat.js"></script>
