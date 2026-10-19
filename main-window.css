@@ -144,7 +144,7 @@
     display: block;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     border-radius: 12px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #05070c;
 }
 
 /* Если картинок нет (пустые заглушки) */
@@ -260,4 +260,132 @@
         max-width: 100%;
         aspect-ratio: 16 / 9;
     }
+}
+
+/* ================= МОКАП "ФАЙЛЫ" НА ГЛАВНОЙ ================= */
+.files-mockup {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 12px 32px rgba(17, 24, 39, 0.08);
+    font-family: inherit;
+    max-width: 520px;
+    width: 100%;
+}
+
+/* Тулбар мокапа */
+.files-mockup-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f3f4f6;
+    margin-bottom: 14px;
+}
+.files-mockup-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+}
+.files-mockup-count {
+    font-size: 11px;
+    color: #6b7280;
+    background: #f3f4f6;
+    padding: 2px 7px;
+    border-radius: 10px;
+}
+.files-mockup-add {
+    margin-left: auto;
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: default;
+    pointer-events: none;
+    font-family: inherit;
+}
+
+/* Сетка дел */
+.files-mockup-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
+}
+.files-mockup-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 10px 8px;
+    text-align: center;
+    background: #fff;
+    transition: all 0.2s;
+}
+.files-mockup-card.active {
+    border-color: #6366f1;
+    background: #f5f5ff;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.12);
+}
+.files-mockup-icon {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+.files-mockup-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.files-mockup-meta {
+    font-size: 10px;
+    color: #9ca3af;
+}
+
+/* Список файлов */
+.files-mockup-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: #fafafa;
+    border-radius: 8px;
+    padding: 8px;
+}
+.files-mockup-file {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #f3f4f6;
+}
+.files-mockup-file-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+}
+.files-mockup-file-name {
+    font-size: 11px;
+    color: #111827;
+    font-weight: 500;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.files-mockup-file-size {
+    font-size: 10px;
+    color: #9ca3af;
+    flex-shrink: 0;
+}
+
+/* Адаптив */
+@media (max-width: 640px) {
+    .files-mockup-grid { grid-template-columns: repeat(2, 1fr); }
+    .files-mockup-grid .files-mockup-card:last-child { display: none; }
 }
