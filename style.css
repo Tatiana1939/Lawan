@@ -42,7 +42,8 @@ header {
     align-items: center;
     gap: 40px;
     flex-grow: 1;
-    justify-content: flex-end;
+    justify-content: space-between;
+    margin-left: 180px;
 }
 
 /* Кнопка-бургер (по умолчанию скрыта) */
@@ -141,7 +142,7 @@ nav a:hover {
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 25px;
 }
 
 .icon-btn {
