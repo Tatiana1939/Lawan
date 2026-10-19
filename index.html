@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="tasks.css">
     <link rel="stylesheet" href="main-window.css">
+    <link rel="stylesheet" href="files.css">
 <link rel="stylesheet" href="chat.css">
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
@@ -42,7 +43,7 @@
                     <ul>
                         <li><a href="#">Продукты <svg class="arrow-down" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a></li>
                         <li><a href="#">Реестр клиентов</a></li>
-                        <li><a href="#">Файлы с делами</a></li>
+                        <li><a href="#" id="nav-files">Файлы с делами</a></li>
                         <li><a href="#" id="nav-tasks">Задачи</a></li>
                         <li><a href="#" id="nav-calendar">Календарь</a></li>
                         <li><a href="#">Уведомления</a></li>
@@ -464,6 +465,84 @@
         </main>
     </div>
 
+    <!-- ============================================ -->
+<!--            СТРАНИЦА ФАЙЛОВ (ДЕЛА)            -->
+<!-- ============================================ -->
+    <div id="files-view" style="display: none;">
+        <div class="files-toolbar">
+            <div class="files-toolbar-left">
+                <h2 class="files-toolbar-title">Файлы</h2>
+                <span class="files-toolbar-count" id="casesCount"></span>
+            </div>
+            <button class="files-toolbar-btn" id="createCaseBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                Создать дело
+            </button>
+        </div>
+
+        <div class="files-content">
+            <div class="cases-grid" id="casesGrid"></div>
+        </div>
+    </div>
+
+<!-- ============================================ -->
+<!--       ПРОСМОТР ВНУТРИ ДЕЛА (файлы)          -->
+<!-- ============================================ -->
+    <div id="case-detail-view" style="display: none;">
+        <div class="files-toolbar">
+            <div class="files-toolbar-left">
+                <button class="files-back-btn" id="backToCasesBtn" title="Назад">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <h2 class="files-toolbar-title" id="caseDetailTitle">Название дела</h2>
+            </div>
+            <div class="files-toolbar-right">
+                <button class="files-toolbar-btn files-toolbar-btn-danger" id="deleteCaseBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"/>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    </svg>
+                    Удалить
+                </button>
+            </div>
+        </div>
+
+        <div class="files-content">
+            <div class="upload-zone" id="uploadZone">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                <div class="upload-zone-text">
+                    Перетащите файлы сюда или <label for="fileInput" class="upload-link">выберите</label>
+                    <div class="upload-hint">PDF, DOC, DOCX, JPG, PNG — до 5 МБ каждый</div>
+                </div>
+                <input type="file" id="fileInput" multiple style="display: none;">
+            </div>
+
+            <div class="files-list" id="filesList"></div>
+        </div>
+    </div>
+
+    <!-- Модалка создания дела -->
+    <div class="modal-overlay" id="caseModal" style="display: none;">
+        <div class="modal-content">
+            <h3>Новое дело</h3>
+            <p class="modal-date">Дайте название делу (например, «Альфа» или «Иванов против Петрова»)</p>
+            <input type="text" id="caseInput" placeholder="Название дела" maxlength="80">
+            <div class="modal-actions">
+                <button class="modal-btn modal-cancel" id="caseCancel">Отмена</button>
+                <button class="modal-btn modal-save" id="caseSave">Создать</button>
+            </div>
+        </div>
+    </div>
+
     <!-- МОДАЛЬНОЕ ОКНО: новая задача -->
     <div class="modal-overlay" id="kanbanModal" style="display: none;">
         <div class="modal-content">
@@ -567,7 +646,9 @@
     </section>
     <script src="script.js"></script>
     <script src="tasks.js"></script>
+    <script src="files.js"></script>
 <script src="chat.js"></script>
 <script src="work-chat.js"></script>
+
 </body>
 </html>
