@@ -73,19 +73,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainView = document.getElementById('main-view');
     const calendarView = document.getElementById('calendar-view');
 
-    function switchView(targetId) {
-        const views = ['main-view', 'calendar-view', 'tasks-view'];
-        views.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.style.display = (id === targetId) ? 'block' : 'none';
+    // Единая функция переключения view для всего сайта
+    window.showView = function(id) {
+        const allViews = [
+            'main-view',
+            'calendar-view',
+            'tasks-view',
+            'files-view',
+            'case-detail-view'
+        ];
+        allViews.forEach(v => {
+            const el = document.getElementById(v);
+            if (el) el.style.display = (v === id) ? 'block' : 'none';
         });
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        
-        // Закрываем бургер-меню, если открыто
         const navWrapper = document.getElementById('navWrapper');
         const burgerBtn = document.getElementById('burgerBtn');
         if (navWrapper) navWrapper.classList.remove('open');
         if (burgerBtn) burgerBtn.classList.remove('active');
+    };
+
+    // для обратной совместимости, если где-то ещё вызывается switchView
+    function switchView(targetId) {
+        window.showView(targetId);
     }
 
     if (navCalendar) {

@@ -29,19 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navFiles) {
         navFiles.addEventListener('click', (e) => {
             e.preventDefault();
-            showView('files-view');
+            window.showView('files-view');
             renderCases();
         });
-    }
-
-    function showView(id) {
-        ['main-view', 'calendar-view', 'tasks-view', 'files-view', 'case-detail-view'].forEach(v => {
-            const el = document.getElementById(v);
-            if (el) el.style.display = (v === id) ? 'block' : 'none';
-        });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        if (navWrapper) navWrapper.classList.remove('open');
-        if (burgerBtn) burgerBtn.classList.remove('active');
     }
 
     /* ============================================
@@ -52,6 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!grid) return;
         const cases = loadCases();
         grid.innerHTML = '';
+
+        // Счётчик дел
+        const countEl = document.getElementById('casesCount');
+        if (countEl) countEl.textContent = cases.length ? `${cases.length}` : '';
 
         if (cases.length === 0) {
             grid.innerHTML = '<div class="empty-files" style="grid-column:1/-1">Пока нет дел. Создайте первое дело ниже.</div>';
@@ -115,14 +109,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!c) return;
         currentCaseId = caseId;
         document.getElementById('caseDetailTitle').textContent = c.name;
-        // meta больше не отображается отдельным блоком — можно убрать
         renderFiles(c);
-        showView('case-detail-view');
+        window.showView('case-detail-view');
     }
 
     document.getElementById('backToCasesBtn').onclick = () => {
         currentCaseId = null;
-        showView('files-view');
+        window.showView('files-view');
         renderCases();
     };
 
@@ -133,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cases = cases.filter(c => c.id !== currentCaseId);
         saveCases(cases);
         currentCaseId = null;
-        showView('files-view');
+        window.showView('files-view');
         renderCases();
     };
 
@@ -186,23 +179,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const uploadZone = document.getElementById('uploadZone');
     const fileInput = document.getElementById('fileInput');
 
-    uploadZone.addEventListener('click', () => fileInput.click());
+    if (uploadZone && fileInput) {
+        uploadZone.addEventListener('click', () => fileInput.click());
 
-    uploadZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        uploadZone.classList.add('drag-over');
-    });
-    uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
-    uploadZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        uploadZone.classList.remove('drag-over');
-        if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
-    });
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('drag-over');
+        });
+        uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('drag-over');
+            if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
+        });
 
-    fileInput.addEventListener('change', () => {
-        if (fileInput.files.length) handleFiles(fileInput.files);
-        fileInput.value = '';
-    });
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length) handleFiles(fileInput.files);
+            fileInput.value = '';
+        });
+    }
 
     function handleFiles(fileList) {
         if (!currentCaseId) return;
@@ -229,7 +224,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 processed++;
                 if (processed === files.length) {
-                    saveCases(cases);
+                    try {
+                        saveCases(cases);
+                    } catch (err) {
+                        alert('Не удалось сохранить файлы: место в браузере закончилось. Удалите старые файлы и попробуйте снова.');
+                        return;
+                    }
                     openCase(currentCaseId);
                 }
             };
@@ -253,8 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!currentCaseId) return;
         if (!confirm('Удалить файл?')) return;
         const cases = loadCases();
-        const countEl = document.getElementById('casesCount');
-        if (countEl) countEl.textContent = cases.length ? `${cases.length}` : '';
         const c = cases.find(x => x.id === currentCaseId);
         if (!c) return;
         c.files = c.files.filter(f => f.id !== fileId);

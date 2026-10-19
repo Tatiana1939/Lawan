@@ -6,13 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const burgerBtn = document.getElementById('burgerBtn');
 
     function showTasksView() {
-        ['main-view', 'calendar-view', 'tasks-view'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.style.display = (id === 'tasks-view') ? 'block' : 'none';
-        });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        if (navWrapper) navWrapper.classList.remove('open');
-        if (burgerBtn) burgerBtn.classList.remove('active');
+        window.showView('tasks-view');
         renderBoards();
     }
 
